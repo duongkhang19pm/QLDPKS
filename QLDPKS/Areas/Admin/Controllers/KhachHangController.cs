@@ -20,20 +20,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View(db.KhachHang.ToList());
         }
 
-        // GET: Admin/KhachHang/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHang.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
+       
 
         // GET: Admin/KhachHang/Create
         public ActionResult Create()
@@ -46,10 +33,14 @@ namespace QLDPKS.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HoVaTen,SDT,CMND,Email,DiaChi,TenDangNhap,MatKhau")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "ID,HoVaTen,SDT,CMND,Email,DiaChi,TenDangNhap,MatKhau,XacNhanMatKhau")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
+                Session["MaKhachHang"] = khachHang.ID;
+                Session["HoTenKH"] = khachHang.HoVaTen;
+                khachHang.MatKhau = Libs.SHA1.ComputeHash(khachHang.MatKhau);
+                khachHang.XacNhanMatKhau = Libs.SHA1.ComputeHash(khachHang.XacNhanMatKhau);
                 db.KhachHang.Add(khachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -70,7 +61,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(khachHang);
+            return View(new KhachHangEdit(khachHang));
         }
 
         // POST: Admin/KhachHang/Edit/5
@@ -78,11 +69,38 @@ namespace QLDPKS.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HoVaTen,SDT,CMND,Email,DiaChi,TenDangNhap,MatKhau")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "ID,HoVaTen,SDT,CMND,Email,DiaChi,TenDangNhap,MatKhau,XacNhanMatKhau")] KhachHangEdit khachHang)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(khachHang).State = EntityState.Modified;
+                KhachHang k = db.KhachHang.Find(khachHang.ID);
+
+                // Giữ nguyên mật khẩu cũ
+                if (khachHang.MatKhau == null)
+                {
+                    k.ID = khachHang.ID;
+                    k.HoVaTen = khachHang.HoVaTen;
+                    k.SDT = khachHang.SDT;
+                    k.DiaChi = khachHang.DiaChi;
+                    k.CMND = khachHang.CMND;
+                    k.Email = khachHang.Email;
+                    k.TenDangNhap = khachHang.TenDangNhap;
+                    k.XacNhanMatKhau = k.MatKhau;
+                }
+                else // Cập nhật mật khẩu mới
+                {
+                    k.ID = khachHang.ID;
+                    k.HoVaTen = khachHang.HoVaTen;
+                    k.SDT = khachHang.SDT;
+                    k.DiaChi = khachHang.DiaChi;
+                    k.CMND = khachHang.CMND;
+                    k.Email = khachHang.Email;
+                    k.TenDangNhap = khachHang.TenDangNhap;
+                    k.MatKhau = Libs.SHA1.ComputeHash(khachHang.MatKhau);
+                    k.XacNhanMatKhau = Libs.SHA1.ComputeHash(khachHang.XacNhanMatKhau);
+
+                }
+                db.Entry(k).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

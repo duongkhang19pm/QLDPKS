@@ -145,6 +145,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Libs\SHA1.cs" />
     <Compile Include="Models\AlbumAnh.cs">
       <DependentUpon>QLDPKS.tt</DependentUpon>
     </Compile>
@@ -169,6 +170,7 @@
     <Compile Include="Models\KhachHang.cs">
       <DependentUpon>QLDPKS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KhachHangModels.cs" />
     <Compile Include="Models\LoaiPhong.cs">
       <DependentUpon>QLDPKS.tt</DependentUpon>
     </Compile>
@@ -285,7 +287,6 @@
     <Content Include="Areas\Admin\Views\DichVu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHang\Create.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHang\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KhachHang\Details.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHang\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHang\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiPhong\Create.cshtml" />
