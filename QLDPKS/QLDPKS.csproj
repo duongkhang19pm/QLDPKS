@@ -125,6 +125,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DichVuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\LoaiPhongController.cs" />
@@ -299,6 +300,10 @@
     <Content Include="Views\LoaiPhong\Details.cshtml" />
     <Content Include="Views\LoaiPhong\Edit.cshtml" />
     <Content Include="Views\LoaiPhong\Index.cshtml" />
+    <Content Include="Views\DichVu\Create.cshtml" />
+    <Content Include="Views\DichVu\Delete.cshtml" />
+    <Content Include="Views\DichVu\Edit.cshtml" />
+    <Content Include="Views\DichVu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AnhNhanVien\" />
