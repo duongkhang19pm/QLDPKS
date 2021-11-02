@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -155,6 +156,7 @@
     <Compile Include="Models\KhachHang.cs">
       <DependentUpon>QLDPKS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NhanVienModels.cs" />
     <Compile Include="Models\KhachHangModels.cs" />
     <Compile Include="Models\LoaiPhong.cs">
       <DependentUpon>QLDPKS.tt</DependentUpon>
@@ -287,8 +289,13 @@
     <Content Include="Views\KhachHang\Edit.cshtml" />
     <Content Include="Views\KhachHang\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\NhanVien\Create.cshtml" />
+    <Content Include="Views\NhanVien\Delete.cshtml" />
+    <Content Include="Views\NhanVien\Edit.cshtml" />
+    <Content Include="Views\NhanVien\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AnhNhanVien\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

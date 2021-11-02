@@ -1,0 +1,105 @@
+﻿@model QLDPKS.Models.NhanVienEdit
+
+@{
+    ViewBag.Title = "Cập Nhât Nhân Viên";
+}
+<div class="card mt-3">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "NhanVien", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.HinhAnhNV)
+        <form>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HoVaTenNV)
+                @Html.EditorFor(model => model.HoVaTenNV, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập họ tên khách hàng" } })
+                @Html.ValidationMessageFor(model => model.HoVaTenNV, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.SDT)
+                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập số điện thoại" } })
+                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.DiaChi)
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập địa chỉ" } })
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CMND)
+                @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập họ tên khách hàng" } })
+                @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập họ tên khách hàng" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TenDangNhap)
+                @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập tên đăng nhập" } })
+                @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MatKhau)
+                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                <span class="d-block mb-2 mt-2 small text-danger">Bỏ trống nếu không muốn cập nhật mật khẩu mới!</span>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.XacNhanMatKhau)
+                @Html.EditorFor(model => model.XacNhanMatKhau, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập lại mật khẩu" } })
+                @Html.ValidationMessageFor(model => model.XacNhanMatKhau, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(model => model.Quyen)
+                <div class="checkbox">
+                    @Html.DropDownListFor(model => model.Quyen, new SelectList(new[] {
+                        new SelectListItem {Value =null, Text="--Chọn Quyền--"},
+                        new SelectListItem {Value ="True", Text="Quản Lý"},
+                        new SelectListItem {Value ="False", Text="Nhân Viên"}
+                          }, "value", "text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Quyen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DuLieuHinhAnhNV)
+                <span class="d-block mb-2"><img src="~/@Model.HinhAnhNV" width="80" class="img-thumbnail" /></span>
+                <span class="d-block mb-2 mt-2 small text-danger">Bỏ trống nếu không muốn cập nhật ảnh mới!</span>
+                @Html.TextBoxFor(model => model.DuLieuHinhAnhNV, new { @class = "form-control-file", type = "file" })
+                @Html.ValidationMessageFor(model => model.DuLieuHinhAnhNV, "", new { @class = "text-danger" })
+                @if (!String.IsNullOrEmpty(ViewData.ModelState["UploadError"].Errors[0].ErrorMessage))
+                {
+                    <span class="d-block text-danger">@ViewData.ModelState["UploadError"].Errors[0].ErrorMessage</span>
+                }
+            </div>
+
+            <div class="form-group mb-0">
+                <button type="submit" class="btn btn-outline-dark"><i class="fas fa-cog"></i> Cập Nhật</button>
+            </div>
+        </form>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
