@@ -130,6 +130,7 @@
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\LoaiPhongController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
+    <Compile Include="Controllers\TienNghiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -304,6 +305,10 @@
     <Content Include="Views\DichVu\Delete.cshtml" />
     <Content Include="Views\DichVu\Edit.cshtml" />
     <Content Include="Views\DichVu\Index.cshtml" />
+    <Content Include="Views\TienNghi\Create.cshtml" />
+    <Content Include="Views\TienNghi\Delete.cshtml" />
+    <Content Include="Views\TienNghi\Edit.cshtml" />
+    <Content Include="Views\TienNghi\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AnhNhanVien\" />
