@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\LoaiPhongController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -293,6 +294,11 @@
     <Content Include="Views\NhanVien\Delete.cshtml" />
     <Content Include="Views\NhanVien\Edit.cshtml" />
     <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\LoaiPhong\Create.cshtml" />
+    <Content Include="Views\LoaiPhong\Delete.cshtml" />
+    <Content Include="Views\LoaiPhong\Details.cshtml" />
+    <Content Include="Views\LoaiPhong\Edit.cshtml" />
+    <Content Include="Views\LoaiPhong\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AnhNhanVien\" />
