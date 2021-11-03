@@ -1,10 +1,9 @@
-﻿@model IEnumerable<QLDPKS.Models.NhanVien>
+﻿@model IEnumerable<QLDPKS.Models.BinhLuan>
 
 @{
-    ViewBag.Title = "Danh Sách Nhân Viên";
+    ViewBag.Title = "Danh Sách Bình Luận";
 }
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
-
 <div class="card mt-2">
     <div class="breadcrumb_section bg_gray page-title-mini">
         <div class="container-fluid">
@@ -26,30 +25,21 @@
                 <tr>
                     <th width="5%">#</th>
                     <th>
-                        @Html.DisplayNameFor(model => model.HoVaTenNV)
+                        @Html.DisplayNameFor(model => model.NoiDung)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.SDT)
+                        @Html.DisplayNameFor(model => model.NgayDang)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DiaChi)
+                        @Html.DisplayNameFor(model => model.KiemDuyet)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CMND)
+                        @Html.DisplayNameFor(model => model.BaiViet.TieuDe)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Email)
+                        @Html.DisplayNameFor(model => model.KhachHang.HoVaTen)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.HinhAnhNV)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TenDangNhap)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Quyen)
-                    </th>
-                    <th width="10%"></th>
+                    <th width="15%"></th>
 
                 </tr>
             </thead>
@@ -60,37 +50,31 @@
                     <tr>
                         <td>@stt</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoVaTenNV)
+                            @Html.DisplayFor(modelItem => item.NoiDung)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.SDT)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DiaChi)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CMND)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
+                            @Html.DisplayFor(modelItem => item.NgayDang)
                         </td>
                         <td class="text-center">
-                            <img src="~/@item.HinhAnhNV" width="130" height="100" class="img-thumbnail" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TenDangNhap)
-                        </td>
-                        <td>
-                            @if (item.Quyen == true)
+                            @if (item.KiemDuyet == 1)
                             {
-                                <span class="badge badge-pill bg-success">Quản Lý</span>
+
+
+                                <a href="@Url.Action("Approved", new { id = item.ID })"><i class="fas fa-check-circle text-info"></i></a>
                             }
                             else
                             {
-                                <span class="badge badge-pill bg-primary">Nhân Viên</span>
+                                <a href="@Url.Action("Approved", new { id = item.ID })"><i class="fas fa-ban text-danger"></i></a>
                             }
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BaiViet.TieuDe)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KhachHang.HoVaTen)
+                        </td>
                         <td class="project-actions text-center">
+
                             <a href="@Url.Action("Edit", new { id = item.ID })" class="btn btn-outline-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
                             <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>
                         </td>
@@ -111,12 +95,11 @@
                     "info": "Trang  _PAGE_ của _PAGES_",
                     "infoEmpty": "Không có sẵn dữ liệu",
                     "infoFiltered": "(được lọc từ tổng _MAX_  dữ liệu)"
-
-
                 }
             });
         });
     </script>
+
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.js"></script>
 
 }

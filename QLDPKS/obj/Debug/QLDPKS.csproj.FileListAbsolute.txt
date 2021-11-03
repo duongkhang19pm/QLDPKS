@@ -249,7 +249,6 @@ D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\bin\System.Web.WebPages.xml
 D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\bin\System.Web.WebPages.Deployment.xml
 D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\bin\System.Web.WebPages.Razor.xml
 D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\bin\Antlr3.Runtime.pdb
-D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.csproj.AssemblyReference.cache
 D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.csproj.CoreCompileInputs.cache
 D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.csproj.CopyComplete
 D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.dll

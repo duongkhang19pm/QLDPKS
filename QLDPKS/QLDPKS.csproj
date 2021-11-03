@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaiVietController.cs" />
+    <Compile Include="Controllers\BinhLuanController.cs" />
     <Compile Include="Controllers\DichVuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
@@ -323,6 +324,11 @@
     <Content Include="Views\BaiViet\Delete.cshtml" />
     <Content Include="Views\BaiViet\Edit.cshtml" />
     <Content Include="Views\BaiViet\Index.cshtml" />
+    <Content Include="Views\BinhLuan\Create.cshtml" />
+    <Content Include="Views\BinhLuan\Delete.cshtml" />
+    <Content Include="Views\BinhLuan\Edit.cshtml" />
+    <Content Include="Views\BinhLuan\Index.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AnhNhanVien\" />
