@@ -125,13 +125,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AlbumAnhController.cs" />
     <Compile Include="Controllers\BaiVietController.cs" />
     <Compile Include="Controllers\BinhLuanController.cs" />
+    <Compile Include="Controllers\ChiTietDichVuController.cs" />
+    <Compile Include="Controllers\ChiTietTienNghiController.cs" />
     <Compile Include="Controllers\DichVuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\LoaiPhongController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
+    <Compile Include="Controllers\PhongController.cs" />
     <Compile Include="Controllers\TienNghiController.cs" />
     <Compile Include="Controllers\XacThucController.cs" />
     <Compile Include="Global.asax.cs">
@@ -329,10 +333,32 @@
     <Content Include="Views\BinhLuan\Edit.cshtml" />
     <Content Include="Views\BinhLuan\Index.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\AlbumAnh\Create.cshtml" />
+    <Content Include="Views\AlbumAnh\Delete.cshtml" />
+    <Content Include="Views\AlbumAnh\Details.cshtml" />
+    <Content Include="Views\AlbumAnh\Edit.cshtml" />
+    <Content Include="Views\AlbumAnh\Index.cshtml" />
+    <Content Include="Views\ChiTietDichVu\Create.cshtml" />
+    <Content Include="Views\ChiTietDichVu\Delete.cshtml" />
+    <Content Include="Views\ChiTietDichVu\Details.cshtml" />
+    <Content Include="Views\ChiTietDichVu\Edit.cshtml" />
+    <Content Include="Views\ChiTietDichVu\Index.cshtml" />
+    <Content Include="Views\ChiTietTienNghi\Create.cshtml" />
+    <Content Include="Views\ChiTietTienNghi\Delete.cshtml" />
+    <Content Include="Views\ChiTietTienNghi\Details.cshtml" />
+    <Content Include="Views\ChiTietTienNghi\Edit.cshtml" />
+    <Content Include="Views\ChiTietTienNghi\Index.cshtml" />
+    <Content Include="Views\Phong\Create.cshtml" />
+    <Content Include="Views\Phong\Delete.cshtml" />
+    <Content Include="Views\Phong\ChiTiet.cshtml" />
+    <Content Include="Views\Phong\Edit.cshtml" />
+    <Content Include="Views\Phong\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AlbumAnh\" />
     <Folder Include="AnhNhanVien\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Storage\" />
     <Folder Include="Views\XacThuc\" />
   </ItemGroup>
   <ItemGroup>

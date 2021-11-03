@@ -1,0 +1,148 @@
+﻿@model QLDPKS.Models.Phong
+
+@{
+    ViewBag.Title = "Thông Tin Phòng " + Model.TenPhong;
+}
+
+<div class="card  w-100 h-100">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body w-100 h-100">
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <h3 class="d-inline-block d-sm-none">@ViewBag.Title</h3>
+                <div class="col-12">
+                    <img src="~/@Model.HinhAnhBia" class="product-image" alt="Product Image" height="500">
+                </div>
+                <div class=" mt-2">
+                    @foreach (var anh in Model.AlbumAnh)
+                    {
+                        <img src="@anh.AlbumHinhAnh" width="135" height="100" class="img-thumbnail" />
+                    }
+                </div>
+
+
+            </div>
+
+            <div class="col">
+                <h3 class="my-3">@ViewBag.Title</h3>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 500px;">
+
+                <div class="row mt-2">
+                    <div class="col-sm-6 text-left">
+                        <h4>Loại Phòng:</h4>
+                        <h6><i class="fab fa-typo3 fa-2x"></i> @Model.LoaiPhong.TenLoai</h6>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <div>
+                            <h5>Số Lượng : @Model.SLNguoi Người </h5>
+                        </div>
+                        <div>
+                            <h5>Diện Tích : @Model.DTPhong m2 </h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray py-2 px-3 mt-4">
+                    <h2 class="mb-0">
+                        @String.Format("{0:N0}", Model.Gia) VND
+                    </h2>
+                </div>
+
+                <div class="mt-4 text-left">
+                    <h4>Trạng thái Phòng</h4>
+
+                    @if (Model.TrangThai == 1)
+                    {
+                        <i class="fas fa-toggle-on fa-2x text-green "></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-toggle-off fa-2x text-danger "></i>
+                    }
+                </div>
+            </div>
+            <div class="col">
+                <h4 class="mt-4 text-left">Tiện Nghi Phòng Phòng</h4>
+                <table class="table">
+                    <tr>
+                        <th width="5%">#</th>
+                        <th>
+                            Tên Tiện Nghi
+                        </th>
+                        <th width="30%"></th>
+                    </tr>
+                    @{ int tt = 1; }
+                    @foreach (var item in Model.ChiTietTienNghi)
+                    {
+                        <tr>
+                            <td>@tt</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TienNghi.TenTienNghi)
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("Edit","ChiTietTienNghi", new { id = item.ID })" class="btn btn-outline-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                                <a href="@Url.Action("Delete","ChiTietTienNghi", new { id = item.ID })" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>
+                            </td>
+                        </tr>
+                        tt++;
+                    }
+                </table>
+            </div>
+            <div class="col">
+                <h4 class="mt-4 text-left">Dịch Vụ Phòng</h4>
+                <table class="table">
+                    <tr>
+                        <th width="5%">#</th>
+                        <th>
+                            Tên Dịch Vụ
+                        </th>
+                        <th width="30%"></th>
+                    </tr>
+                    @{ int stt = 1; }
+                    @foreach (var item in Model.ChiTietDichVu)
+                    {
+                        <tr>
+                            <td>@stt</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DichVu.TenDichVu)
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("Edit","ChiTietDichVu", new { id = item.ID })" class="btn btn-outline-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                                <a href="@Url.Action("Delete","ChiTietDichVu", new { id = item.ID })" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                </table>
+
+            </div>
+
+
+        </div>
+        <div class="row mt-4">
+            <nav class="w-100">
+                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Mô Tả</a>
+                </div>
+            </nav>
+            <div class="card-body">
+                <p>@Html.Raw(Model.MoTa)</p> <!--chuyền nội dung mã hóa-->
+            </div>
+        </div>
+    </div>
+</div>

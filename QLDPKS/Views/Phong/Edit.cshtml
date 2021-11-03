@@ -1,0 +1,151 @@
+﻿@model QLDPKS.Models.Phong
+
+@{
+    ViewBag.Title = "Cập Nhật Phòng";
+}
+<div class="card mt-3">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+
+        @using (Html.BeginForm("Edit", "Phong", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.HinhAnhBia)
+            <form>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.LoaiPhong_ID)
+                        @Html.DropDownList("LoaiPhong_ID", null, "-- Chọn --", htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.LoaiPhong_ID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.TenPhong)
+                        @Html.EditorFor(model => model.TenPhong, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12" } })
+                        @Html.ValidationMessageFor(model => model.TenPhong, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group  col-md-4">
+                        @Html.LabelFor(model => model.Gia)
+                        @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                        @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group  col-md-6">
+                        @Html.LabelFor(model => model.SLNguoi)
+                        @Html.EditorFor(model => model.SLNguoi, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12" } })
+                        @Html.ValidationMessageFor(model => model.SLNguoi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.DTPhong)
+                        @Html.EditorFor(model => model.DTPhong, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12" } })
+                        @Html.ValidationMessageFor(model => model.DTPhong, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.DuLieuHinhAnhBia)
+                        <span class="d-block mb-2"><img src="~/@Model.HinhAnhBia" width="80" class="img-thumbnail" /></span>
+                        <span class="d-block mb-2 mt-2 small text-danger">Bỏ trống nếu không muốn cập nhật ảnh mới!</span>
+                        @Html.TextBoxFor(model => model.DuLieuHinhAnhBia, new { @class = "form-control-file", type = "file" })
+                        @Html.ValidationMessageFor(model => model.DuLieuHinhAnhBia, "", new { @class = "text-danger" })
+                        @if (!String.IsNullOrEmpty(ViewData.ModelState["UploadError"].Errors[0].ErrorMessage))
+                        {
+                            <span class="d-block text-danger">@ViewData.ModelState["UploadError"].Errors[0].ErrorMessage</span>
+                        }
+                    </div>
+
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.MoTa)
+                    @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12" } })
+                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-outline-dark"><i class="fas fa-cog"></i> Cập Nhật</button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#MoTa'), {
+                toolbar: {
+                    items: [
+                        'undo',
+                        'redo',
+                        '|',
+                        'fontColor',
+                        'highlight',
+                        '|',
+                        'bold',
+                        'underline',
+                        'italic',
+                        'subscript',
+                        'superscript',
+                        'removeFormat',
+                        '|',
+                        'alignment',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'link',
+                        'codeBlock',
+                        'imageInsert',
+                        'insertTable',
+                        'mediaEmbed',
+                        'CKFinder'
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side',
+                        'linkImage'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells',
+                        'tableCellProperties',
+                        'tableProperties'
+                    ]
+                },
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}

@@ -58,7 +58,8 @@ namespace QLKS.Areas.Admin.Controllers
 
                 db.BinhLuan.Add(binhLuan);
                 db.SaveChanges();
-                return RedirectToAction("Detail", "Home", new { id = binhLuan.BaiViet_ID, area = "" });
+               
+              return RedirectToAction("Index", "Home", new { id = binhLuan.BaiViet_ID, area = "" });
             }
 
             ViewBag.BaiViet_ID = new SelectList(db.BaiViet, "ID", "TieuDe", binhLuan.BaiViet_ID);

@@ -1,0 +1,207 @@
+﻿@model QLDPKS.Models.Phong
+
+@{
+    ViewBag.Title = "Thêm Phòng";
+}
+<div class="card mt-3">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+
+        @using (Html.BeginForm("Create", "Phong", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.HinhAnhBia)
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.Label("Dịch Vụ") <br />
+                        @Html.ListBox("ChiTietDV", new MultiSelectList(ViewBag.DichVu_ID, "Value", "text"), new { @class = "form-control dichvu col-md-12" })
+                        @Html.ValidationMessageFor(model => model.ChiTietDichVu, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.Label("Tiện Nghi") <br />
+                        @Html.ListBox("ChiTietTN", new MultiSelectList(ViewBag.TienNghi_ID, "Value", "text"), new { @class = "form-control tiennghi col-md-12" })
+                        @Html.ValidationMessageFor(model => model.ChiTietTienNghi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group  col-md-4">
+                        @Html.LabelFor(model => model.LoaiPhong_ID)
+                        @Html.DropDownList("LoaiPhong_ID", null, "-- Chọn --", htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.LoaiPhong_ID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.TenPhong)
+                        @Html.EditorFor(model => model.TenPhong, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập tên phòng" } })
+                        @Html.ValidationMessageFor(model => model.TenPhong, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group  col-md-4">
+                        @Html.LabelFor(model => model.Gia)
+                        @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập giá phòng" } })
+                        @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group  col-md-6">
+                        @Html.LabelFor(model => model.SLNguoi)
+                        @Html.EditorFor(model => model.SLNguoi, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập số lượng người" } })
+                        @Html.ValidationMessageFor(model => model.SLNguoi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.DTPhong)
+                        @Html.DropDownListFor(model => model.DTPhong, new SelectList(new[] {
+                            new SelectListItem {Value =null ,Text ="-- Chọn Diện Tích --"},
+                            new SelectListItem {Value ="0" ,Text ="15m2"},
+                            new SelectListItem {Value ="1" ,Text ="18m2"},
+                            new SelectListItem {Value ="2" ,Text ="22m2"},
+                            new SelectListItem {Value ="2" ,Text ="25m2"},
+                                new SelectListItem {Value ="2" ,Text ="44m2"}
+
+                        }, "value", "text"), new { @class = "form-control col-md-12 text-center" })
+                        @Html.ValidationMessageFor(model => model.DTPhong, "", new { @class = "text-danger " })
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.DuLieuHinhAnhBia)
+                        @Html.TextBoxFor(model => model.DuLieuHinhAnhBia, new { @class = "form-control-file", type = "file" })
+                        @Html.ValidationMessageFor(model => model.DuLieuHinhAnhBia, "", new { @class = "text-danger" })
+                        @if (!String.IsNullOrEmpty(ViewData.ModelState["UploadError"].Errors[0].ErrorMessage))
+                        {
+                            <span class="d-block text-danger">@ViewData.ModelState["UploadError"].Errors[0].ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.Label("Album Hình Ảnh Phòng") <br />
+                        <a class="btnAddNew" href="#">Thêm</a>
+                        <br />
+                        <div id="myinput" class="myinput">
+                            @Html.TextBoxFor(model => model.DuLieuAlbumAnh, "", new { @type = "file", @multiple = "multiple", @name = "uploadFile[0]" })
+                            @Html.ValidationMessageFor(model => model.DuLieuAlbumAnh, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.MoTa)
+                    @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập mô tả" } })
+                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-outline-dark"><i class="fas fa-plus"></i> Thêm mới</button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.tiennghi').select2();
+            $('.dichvu').select2();
+        });
+
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var max_fields = 10; //maximum input boxes allowed
+        var wrapper = $(".myinput"); //Fields wrapper
+        var add_button = $(".btnAddNew"); //Add button ID
+
+        var x = 0; //initlal text box count
+        $(add_button).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div>@Html.TextBoxFor(model => model.DuLieuAlbumAnh, "", new { @type = "file", @multiple = "multiple",@name = "uploadFile[0]" })<a href="#" class="btnRemove">Xóa</a></div>'); //add input box
+            }
+        });
+
+        $(wrapper).on("click", ".btnRemove", function (e) { //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+    });
+    </script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#MoTa'), {
+                toolbar: {
+                    items: [
+                        'undo',
+                        'redo',
+                        '|',
+                        'fontColor',
+                        'highlight',
+                        '|',
+                        'bold',
+                        'underline',
+                        'italic',
+                        'subscript',
+                        'superscript',
+                        'removeFormat',
+                        '|',
+                        'alignment',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'link',
+                        'codeBlock',
+                        'imageInsert',
+                        'insertTable',
+                        'mediaEmbed',
+                        'CKFinder'
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side',
+                        'linkImage'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells',
+                        'tableCellProperties',
+                        'tableProperties'
+                    ]
+                },
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}

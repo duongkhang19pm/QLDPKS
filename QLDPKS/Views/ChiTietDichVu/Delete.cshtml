@@ -1,0 +1,36 @@
+﻿@model QLDPKS.Models.ChiTietDichVu
+@{
+    ViewBag.Title = "Xóa Dịch Vụ Cho Phòng";
+}
+<div class="card mt-3">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Phong")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Bạn có muốn xóa dịch vụ <strong>@Model.DichVu.TenDichVu</strong> không?
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xác nhận xóa" class="btn btn-outline-danger" />
+            </div>
+        }
+    </div>
+</div>
