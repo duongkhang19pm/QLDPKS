@@ -125,15 +125,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaiVietController.cs" />
     <Compile Include="Controllers\DichVuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\LoaiPhongController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\TienNghiController.cs" />
+    <Compile Include="Controllers\XacThucController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Libs\Images.cs" />
     <Compile Include="Libs\SHA1.cs" />
     <Compile Include="Models\AlbumAnh.cs">
       <DependentUpon>QLDPKS.tt</DependentUpon>
@@ -216,6 +219,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bia.jpg" />
+    <Content Include="Images\eng.png" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo1.jpg" />
+    <Content Include="Images\noimage.png" />
+    <Content Include="Images\vi.png" />
     <Content Include="Models\QLDPKS.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>QLDPKS.Context.cs</LastGenOutput>
@@ -309,10 +319,15 @@
     <Content Include="Views\TienNghi\Delete.cshtml" />
     <Content Include="Views\TienNghi\Edit.cshtml" />
     <Content Include="Views\TienNghi\Index.cshtml" />
+    <Content Include="Views\BaiViet\Create.cshtml" />
+    <Content Include="Views\BaiViet\Delete.cshtml" />
+    <Content Include="Views\BaiViet\Edit.cshtml" />
+    <Content Include="Views\BaiViet\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AnhNhanVien\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Views\XacThuc\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

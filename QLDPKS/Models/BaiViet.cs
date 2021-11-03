@@ -11,7 +11,8 @@ namespace QLDPKS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BaiViet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,17 +20,40 @@ namespace QLDPKS.Models
         {
             this.BinhLuan = new HashSet<BinhLuan>();
         }
-    
+
+        [Display(Name = "Mã BV")]
         public int ID { get; set; }
+
+        [Display(Name = "Họ & Tên Nhân Viên")]
+        [Required(ErrorMessage = "Nhân Viên Chưa Chọn!")]
         public Nullable<int> NhanVien_ID { get; set; }
+
+        [Display(Name = "Tiêu Đề")]
+        [Required(ErrorMessage = "Tiêu đề không được bỏ trống!")]
         public string TieuDe { get; set; }
+
+        [Display(Name = "Tóm Tắt")]
+        [DataType(DataType.MultilineText)]
         public string TomTat { get; set; }
+
+        [Display(Name = "Nội Dung")]
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Nội dung không được bỏ trống!")]
         public string NoiDung { get; set; }
+
+        [Display(Name = "Ngày đăng")]
         public Nullable<System.DateTime> NgayDang { get; set; }
+
+        [Display(Name = "Lượt Xem")]
         public Nullable<int> LuotXem { get; set; }
+
+        [Display(Name = "Kiểm Duyệt?")]
         public Nullable<byte> KiemDuyet { get; set; }
+
+        [Display(Name = "Bình Luận")]
         public Nullable<byte> TrangThaiBinhLuan { get; set; }
-    
+
+
         public virtual NhanVien NhanVien { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }

@@ -1,0 +1,125 @@
+﻿@model QLDPKS.Models.BaiViet
+
+@{
+    ViewBag.Title = "Thêm Bài Viết";
+}
+
+<div class="card mt-2">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "BaiViet", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NhanVien_ID)
+                @Html.DropDownList("NhanVien_ID", null, htmlAttributes: new { @class = "form-control shadow-none col-md-12", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.NhanVien_ID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TieuDe)
+                @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập tiêu đề" } })
+                @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TomTat)
+                @Html.EditorFor(model => model.TomTat, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập tóm tắt" } })
+                @Html.ValidationMessageFor(model => model.TomTat, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NoiDung)
+                @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12", @autocomplete = "off", @placeholder = "Nhập nội dung" } })
+                @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="TrangThaiBinhLuan" name="TrangThaiBinhLuan" value="1" />
+                    <label class="custom-control-label" for="TrangThaiBinhLuan">Cho phép bình luận bài viết này.</label>
+                </div>
+            </div>
+
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-outline-dark"><i class="fas fa-plus"></i> Thêm mới</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#NoiDung'), {
+                toolbar: {
+                    items: [
+                        'undo',
+                        'redo',
+                        '|',
+                        'fontColor',
+                        'highlight',
+                        '|',
+                        'bold',
+                        'underline',
+                        'italic',
+                        'subscript',
+                        'superscript',
+                        'removeFormat',
+                        '|',
+                        'alignment',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'link',
+                        'codeBlock',
+                        'imageInsert',
+                        'insertTable',
+                        'mediaEmbed',
+                        'CKFinder'
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side',
+                        'linkImage'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells',
+                        'tableCellProperties',
+                        'tableProperties'
+                    ]
+                },
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}
