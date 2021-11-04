@@ -8,118 +8,119 @@ using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
 
-namespace QLDPKS.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
-    public class ChiTietDichVuController : Controller
+    public class ChiTietTienNghiController : Controller
     {
         private QLKSEntities db = new QLKSEntities();
 
-        // GET: ChiTietDichVu
+        // GET: ChiTietTienNghi
         public ActionResult Index()
         {
-            var chiTietDichVu = db.ChiTietDichVu.Include(c => c.DichVu).Include(c => c.Phong);
-            return View(chiTietDichVu.ToList());
+            var chiTietTienNghi = db.ChiTietTienNghi.Include(c => c.Phong).Include(c => c.TienNghi);
+            return View(chiTietTienNghi.ToList());
         }
 
-        // GET: ChiTietDichVu/Details/5
+        // GET: ChiTietTienNghi/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
-            if (chiTietDichVu == null)
+            ChiTietTienNghi chiTietTienNghi = db.ChiTietTienNghi.Find(id);
+            if (chiTietTienNghi == null)
             {
                 return HttpNotFound();
             }
-            return View(chiTietDichVu);
+            return View(chiTietTienNghi);
         }
 
-        // GET: ChiTietDichVu/Create
+        // GET: ChiTietTienNghi/Create
         public ActionResult Create()
         {
-            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu");
             ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong");
+            ViewBag.TienNghi_ID = new SelectList(db.TienNghi, "ID", "TenTienNghi");
             return View();
         }
 
-        // POST: ChiTietDichVu/Create
+        // POST: ChiTietTienNghi/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,DichVu_ID,Phong_ID")] ChiTietDichVu chiTietDichVu)
+        public ActionResult Create([Bind(Include = "ID,TienNghi_ID,Phong_ID")] ChiTietTienNghi chiTietTienNghi)
         {
             if (ModelState.IsValid)
             {
-                db.ChiTietDichVu.Add(chiTietDichVu);
+                db.ChiTietTienNghi.Add(chiTietTienNghi);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu", chiTietDichVu.DichVu_ID);
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietDichVu.Phong_ID);
-            return View(chiTietDichVu);
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietTienNghi.Phong_ID);
+            ViewBag.TienNghi_ID = new SelectList(db.TienNghi, "ID", "TenTienNghi", chiTietTienNghi.TienNghi_ID);
+            return View(chiTietTienNghi);
         }
 
-        // GET: ChiTietDichVu/Edit/5
+        // GET: ChiTietTienNghi/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
-            if (chiTietDichVu == null)
+            ChiTietTienNghi chiTietTienNghi = db.ChiTietTienNghi.Find(id);
+            if (chiTietTienNghi == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu", chiTietDichVu.DichVu_ID);
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietDichVu.Phong_ID);
-            return View(chiTietDichVu);
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietTienNghi.Phong_ID);
+            ViewBag.TienNghi_ID = new SelectList(db.TienNghi, "ID", "TenTienNghi", chiTietTienNghi.TienNghi_ID);
+           
+            return View(chiTietTienNghi);
         }
 
-        // POST: ChiTietDichVu/Edit/5
+        // POST: ChiTietTienNghi/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,DichVu_ID,Phong_ID")] ChiTietDichVu chiTietDichVu)
+        public ActionResult Edit([Bind(Include = "ID,TienNghi_ID,Phong_ID")] ChiTietTienNghi chiTietTienNghi)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(chiTietDichVu).State = EntityState.Modified;
+                db.Entry(chiTietTienNghi).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu", chiTietDichVu.DichVu_ID);
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietDichVu.Phong_ID);
-            return View(chiTietDichVu);
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietTienNghi.Phong_ID);
+            ViewBag.TienNghi_ID = new SelectList(db.TienNghi, "ID", "TenTienNghi", chiTietTienNghi.TienNghi_ID);
+            return View(chiTietTienNghi);
         }
 
-        // GET: ChiTietDichVu/Delete/5
+        // GET: ChiTietTienNghi/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
-            if (chiTietDichVu == null)
+            ChiTietTienNghi chiTietTienNghi = db.ChiTietTienNghi.Find(id);
+            if (chiTietTienNghi == null)
             {
                 return HttpNotFound();
             }
-            return View(chiTietDichVu);
+            return View(chiTietTienNghi);
         }
 
-        // POST: ChiTietDichVu/Delete/5
+        // POST: ChiTietTienNghi/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
-            db.ChiTietDichVu.Remove(chiTietDichVu);
+            ChiTietTienNghi chiTietTienNghi = db.ChiTietTienNghi.Find(id);
+            db.ChiTietTienNghi.Remove(chiTietTienNghi);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -8,113 +8,115 @@ using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
 
-namespace QLDPKS.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
-    public class DichVuController : Controller
+    public class LoaiPhongController : Controller
     {
         private QLKSEntities db = new QLKSEntities();
 
-        // GET: Admin/DichVu
+        // GET: Admin/LoaiPhong
         public ActionResult Index()
         {
-            return View(db.DichVu.ToList());
+            return View(db.LoaiPhong.ToList());
         }
 
-        // GET: Admin/DichVu/Details/5
+        // GET: Admin/LoaiPhong/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DichVu dichVu = db.DichVu.Find(id);
-            if (dichVu == null)
+            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
+            if (loaiPhong == null)
             {
                 return HttpNotFound();
             }
-            return View(dichVu);
+            return View(loaiPhong);
         }
 
-        // GET: Admin/DichVu/Create
+        // GET: Admin/LoaiPhong/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/DichVu/Create
+        // POST: Admin/LoaiPhong/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TenDichVu")] DichVu dichVu)
+        public ActionResult Create([Bind(Include = "ID,TenLoai")] LoaiPhong loaiPhong)
         {
             if (ModelState.IsValid)
             {
-                db.DichVu.Add(dichVu);
+                db.LoaiPhong.Add(loaiPhong);
                 db.SaveChanges();
+                SetAlert("Thêm Loại Thành Công", "success");
                 return RedirectToAction("Index");
             }
 
-            return View(dichVu);
+            return View(loaiPhong);
         }
 
-        // GET: Admin/DichVu/Edit/5
+        // GET: Admin/LoaiPhong/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DichVu dichVu = db.DichVu.Find(id);
-            if (dichVu == null)
+            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
+            if (loaiPhong == null)
             {
                 return HttpNotFound();
             }
-            return View(dichVu);
+            return View(loaiPhong);
         }
 
-        // POST: Admin/DichVu/Edit/5
+        // POST: Admin/LoaiPhong/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TenDichVu")] DichVu dichVu)
+        public ActionResult Edit([Bind(Include = "ID,TenLoai")] LoaiPhong loaiPhong)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dichVu).State = EntityState.Modified;
+                db.Entry(loaiPhong).State = EntityState.Modified;
                 db.SaveChanges();
+                SetAlert("Cập Nhật Thành Công", "success");
                 return RedirectToAction("Index");
             }
-            return View(dichVu);
+            return View(loaiPhong);
         }
 
-        // GET: Admin/DichVu/Delete/5
+        // GET: Admin/LoaiPhong/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DichVu dichVu = db.DichVu.Find(id);
-            if (dichVu == null)
+            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
+            if (loaiPhong == null)
             {
                 return HttpNotFound();
             }
-            return View(dichVu);
+            return View(loaiPhong);
         }
 
-        // POST: Admin/DichVu/Delete/5
+        // POST: Admin/LoaiPhong/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DichVu dichVu = db.DichVu.Find(id);
-            db.DichVu.Remove(dichVu);
+            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
+            db.LoaiPhong.Remove(loaiPhong);
             db.SaveChanges();
+            SetAlert("Xóa Thành Công", "success");
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -122,6 +124,22 @@ namespace QLDPKS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-error";
+            }
         }
     }
 }

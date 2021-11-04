@@ -8,114 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
 
-namespace QLDPKS.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
-    public class AlbumAnhController : Controller
+    public class DichVuController : Controller
     {
         private QLKSEntities db = new QLKSEntities();
 
-        // GET: AlbumAnh
+        // GET: Admin/DichVu
         public ActionResult Index()
         {
-            var albumAnh = db.AlbumAnh.Include(a => a.Phong);
-            return View(albumAnh.ToList());
+            return View(db.DichVu.ToList());
         }
 
-        // GET: AlbumAnh/Details/5
+        // GET: Admin/DichVu/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlbumAnh albumAnh = db.AlbumAnh.Find(id);
-            if (albumAnh == null)
+            DichVu dichVu = db.DichVu.Find(id);
+            if (dichVu == null)
             {
                 return HttpNotFound();
             }
-            return View(albumAnh);
+            return View(dichVu);
         }
 
-        // GET: AlbumAnh/Create
+        // GET: Admin/DichVu/Create
         public ActionResult Create()
         {
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong");
             return View();
         }
 
-        // POST: AlbumAnh/Create
+        // POST: Admin/DichVu/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Phong_ID,AlbumHinhAnh")] AlbumAnh albumAnh)
+        public ActionResult Create([Bind(Include = "ID,TenDichVu")] DichVu dichVu)
         {
             if (ModelState.IsValid)
             {
-                db.AlbumAnh.Add(albumAnh);
+                db.DichVu.Add(dichVu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", albumAnh.Phong_ID);
-            return View(albumAnh);
+            return View(dichVu);
         }
 
-        // GET: AlbumAnh/Edit/5
+        // GET: Admin/DichVu/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlbumAnh albumAnh = db.AlbumAnh.Find(id);
-            if (albumAnh == null)
+            DichVu dichVu = db.DichVu.Find(id);
+            if (dichVu == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", albumAnh.Phong_ID);
-            return View(albumAnh);
+            return View(dichVu);
         }
 
-        // POST: AlbumAnh/Edit/5
+        // POST: Admin/DichVu/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Phong_ID,AlbumHinhAnh")] AlbumAnh albumAnh)
+        public ActionResult Edit([Bind(Include = "ID,TenDichVu")] DichVu dichVu)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(albumAnh).State = EntityState.Modified;
+                db.Entry(dichVu).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", albumAnh.Phong_ID);
-            return View(albumAnh);
+            return View(dichVu);
         }
 
-        // GET: AlbumAnh/Delete/5
+        // GET: Admin/DichVu/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlbumAnh albumAnh = db.AlbumAnh.Find(id);
-            if (albumAnh == null)
+            DichVu dichVu = db.DichVu.Find(id);
+            if (dichVu == null)
             {
                 return HttpNotFound();
             }
-            return View(albumAnh);
+            return View(dichVu);
         }
 
-        // POST: AlbumAnh/Delete/5
+        // POST: Admin/DichVu/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AlbumAnh albumAnh = db.AlbumAnh.Find(id);
-            db.AlbumAnh.Remove(albumAnh);
+            DichVu dichVu = db.DichVu.Find(id);
+            db.DichVu.Remove(dichVu);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
 
-namespace QLDPKS.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
     public class PhongController : Controller
     {
@@ -199,6 +199,9 @@ namespace QLDPKS.Controllers
                 // Upload ảnh 
                 if (phong.DuLieuHinhAnhBia != null)
                 {
+                    // Xóa ảnh cũ
+                    string oldFilePath = Server.MapPath("~/" + phong.HinhAnhBia);
+                    if (System.IO.File.Exists(oldFilePath)) System.IO.File.Delete(oldFilePath);
 
                     string folder = "Storage/";
                     string fileExtension = Path.GetExtension(phong.DuLieuHinhAnhBia.FileName).ToLower();
@@ -224,7 +227,7 @@ namespace QLDPKS.Controllers
                         // Cập nhật đường dẫn vào CSDL
                         phong.HinhAnhBia = folder + fileName;
 
-                        db.Phong.Add(phong);
+                        db.Entry(phong).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("Index");
 

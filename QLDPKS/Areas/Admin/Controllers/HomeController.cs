@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
-namespace QLDPKS.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {

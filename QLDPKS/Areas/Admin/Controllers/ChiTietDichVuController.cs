@@ -8,115 +8,122 @@ using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
 
-namespace QLDPKS.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
-    public class LoaiPhongController : Controller
+    public class ChiTietDichVuController : Controller
     {
         private QLKSEntities db = new QLKSEntities();
 
-        // GET: Admin/LoaiPhong
+        // GET: ChiTietDichVu
         public ActionResult Index()
         {
-            return View(db.LoaiPhong.ToList());
+            var chiTietDichVu = db.ChiTietDichVu.Include(c => c.DichVu).Include(c => c.Phong);
+            return View(chiTietDichVu.ToList());
         }
 
-        // GET: Admin/LoaiPhong/Details/5
+        // GET: ChiTietDichVu/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
-            if (loaiPhong == null)
+            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
+            if (chiTietDichVu == null)
             {
                 return HttpNotFound();
             }
-            return View(loaiPhong);
+            return View(chiTietDichVu);
         }
 
-        // GET: Admin/LoaiPhong/Create
+        // GET: ChiTietDichVu/Create
         public ActionResult Create()
         {
+            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu");
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong");
             return View();
         }
 
-        // POST: Admin/LoaiPhong/Create
+        // POST: ChiTietDichVu/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TenLoai")] LoaiPhong loaiPhong)
+        public ActionResult Create([Bind(Include = "ID,DichVu_ID,Phong_ID")] ChiTietDichVu chiTietDichVu)
         {
             if (ModelState.IsValid)
             {
-                db.LoaiPhong.Add(loaiPhong);
+                db.ChiTietDichVu.Add(chiTietDichVu);
                 db.SaveChanges();
-                SetAlert("Thêm Loại Thành Công", "success");
                 return RedirectToAction("Index");
             }
 
-            return View(loaiPhong);
+            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu", chiTietDichVu.DichVu_ID);
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietDichVu.Phong_ID);
+            return View(chiTietDichVu);
         }
 
-        // GET: Admin/LoaiPhong/Edit/5
+        // GET: ChiTietDichVu/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
-            if (loaiPhong == null)
+            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
+            if (chiTietDichVu == null)
             {
                 return HttpNotFound();
             }
-            return View(loaiPhong);
+            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu", chiTietDichVu.DichVu_ID);
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietDichVu.Phong_ID);
+            return View(chiTietDichVu);
         }
 
-        // POST: Admin/LoaiPhong/Edit/5
+        // POST: ChiTietDichVu/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TenLoai")] LoaiPhong loaiPhong)
+        public ActionResult Edit([Bind(Include = "ID,DichVu_ID,Phong_ID")] ChiTietDichVu chiTietDichVu)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(loaiPhong).State = EntityState.Modified;
+                db.Entry(chiTietDichVu).State = EntityState.Modified;
                 db.SaveChanges();
-                SetAlert("Cập Nhật Thành Công", "success");
                 return RedirectToAction("Index");
             }
-            return View(loaiPhong);
+            ViewBag.DichVu_ID = new SelectList(db.DichVu, "ID", "TenDichVu", chiTietDichVu.DichVu_ID);
+            ViewBag.Phong_ID = new SelectList(db.Phong, "ID", "TenPhong", chiTietDichVu.Phong_ID);
+            return View(chiTietDichVu);
         }
 
-        // GET: Admin/LoaiPhong/Delete/5
+        // GET: ChiTietDichVu/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
-            if (loaiPhong == null)
+            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
+            if (chiTietDichVu == null)
             {
                 return HttpNotFound();
             }
-            return View(loaiPhong);
+            return View(chiTietDichVu);
         }
 
-        // POST: Admin/LoaiPhong/Delete/5
+        // POST: ChiTietDichVu/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            LoaiPhong loaiPhong = db.LoaiPhong.Find(id);
-            db.LoaiPhong.Remove(loaiPhong);
+            ChiTietDichVu chiTietDichVu = db.ChiTietDichVu.Find(id);
+            db.ChiTietDichVu.Remove(chiTietDichVu);
             db.SaveChanges();
-            SetAlert("Xóa Thành Công", "success");
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -124,22 +131,6 @@ namespace QLDPKS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-        protected void SetAlert(string message, string type)
-        {
-            TempData["AlertMessage"] = message;
-            if (type == "success")
-            {
-                TempData["AlertType"] = "alert-success";
-            }
-            else if (type == "warning")
-            {
-                TempData["AlertType"] = "alert-warning";
-            }
-            else if (type == "error")
-            {
-                TempData["AlertType"] = "alert-error";
-            }
         }
     }
 }

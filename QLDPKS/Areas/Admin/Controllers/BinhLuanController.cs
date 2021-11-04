@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using QLDPKS.Models;
 
-namespace QLKS.Areas.Admin.Controllers
+namespace QLDPKS.Areas.Admin.Controllers
 {
     public class BinhLuanController : Controller
     {
