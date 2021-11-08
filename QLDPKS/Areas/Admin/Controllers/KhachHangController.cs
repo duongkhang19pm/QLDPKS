@@ -25,7 +25,7 @@ namespace QLDPKS.Areas.Admin.Controllers
         // GET: Admin/KhachHang/Create
         public ActionResult Create()
         {
-            return View();
+            return View(db.KhachHang.ToList());
         }
 
         // POST: Admin/KhachHang/Create
@@ -100,7 +100,7 @@ namespace QLDPKS.Areas.Admin.Controllers
                     k.XacNhanMatKhau = Libs.SHA1.ComputeHash(khachHang.XacNhanMatKhau);
 
                 }
-                db.Entry(k).State = EntityState.Modified;
+                db.Entry(khachHang).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

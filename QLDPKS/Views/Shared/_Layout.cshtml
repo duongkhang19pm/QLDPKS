@@ -16,15 +16,45 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    
 
 
+
+                    @if (Session["MaKhachHang"] == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link " href="@Url.Action("Login", "Home")"><i class="fas fa-sign-in-alt"></i>Đăng nhập</a>
+                        </li>
+                    }
+                    else
+                    {
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle"></i>
+                                @Session["HoTenKhachHang"].ToString()
+                            </a>
+                            <div class="dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <a class="dropdown-item" href="@Url.Action("ThongTinKH","Home",new {id = Session["MaKhachHang"]})"> <i class="fas fa-info-circle mr-1"></i>Thông tin cá nhân</a>
+
+                                <a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fas fa-sign-out-alt mr-1"></i> Đăng xuất</a>
+                            </div>
+                        </li>
+
+
+                    }
+                    <li class="nav-item" href="@Url.Action("Index", "Home")">
+                       
+                    </li>
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+
+
             </div>
         </div>
     </nav>

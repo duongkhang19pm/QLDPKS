@@ -139,6 +139,7 @@
     <Compile Include="Areas\Admin\Controllers\PhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TienNghiController.cs" />
     <Compile Include="Areas\Admin\Controllers\XacThucController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -305,7 +306,7 @@
     <Content Include="Areas\Admin\Views\DichVu\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\DichVu\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DichVu\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\About.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Contact.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
@@ -334,6 +335,7 @@
     <Content Include="Areas\Admin\Views\TienNghi\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TienNghi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Home\DoiMatKhau.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -357,18 +359,19 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\DoiMatKhau.cshtml" />
+    <Content Include="Views\Home\DangKy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AlbumAnh\" />
     <Folder Include="AnhNhanVien\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\XacThuc\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Storage\" />
   </ItemGroup>
   <ItemGroup>
