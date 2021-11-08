@@ -126,6 +126,12 @@ namespace QLDPKS.Controllers
 			}
 			return View(doiMatKhauModel);
 		}
+		public ActionResult ThongTinKH(int id)
+		{
+			var kh = db.KhachHang.Where(nv => nv.ID == id).SingleOrDefault();
+			return View(kh);
+		}
+
 		protected void SetAlert(string message, string type)
 		{
 			TempData["AlertMessage"] = message;

@@ -1,0 +1,129 @@
+﻿@model QLDPKS.Models.NhanVien
+@{
+    ViewBag.Title = "Thông Tin Nhân Viên";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="breadcrumb_section bg_gray page-title-mini">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+
+                    <ol class="breadcrumb align-content-md-end">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li class="breadcrumb-item active">@ViewBag.Title</li>
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="~/@Model.HinhAnhNV" alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">@Model.HoVaTenNV</h3>
+                        @if (Convert.ToInt32(Session["Quyen"]) == 1)
+                        {
+                            <p class="text-muted text-center">Quản Lý </p>
+                        }
+                        else
+                        {
+                            <p class="text-muted text-center">Nhân Viên</p>
+                        }
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông Tin Cá Nhân</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <strong><i class="fas fa-phone mr-1"></i> Số Điện Thoại</strong>
+
+                        <p class="text-muted">
+                            @Model.SDT
+                        </p>
+                        <hr>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa  Chỉ</strong>
+                        <p class="text-muted">@Model.DiaChi</p>
+                        <hr>
+                        <strong><i class="fas fa-address-card mr-1"></i> CMND</strong>
+                        <p class="text-muted">
+                            @Model.CMND
+                        </p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-link mr-1"></i>Email</strong>
+
+                        <p class="text-muted">@Model.Email</p>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Bài Viết Của Tôi</a></li>
+
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="activity">
+                                <!-- Post -->
+                                @foreach (var item in Model.BaiViet)
+                                {
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <span>
+                                                <a href="#">@item.TieuDe</a>
+                                                <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                                            </span>
+                                            <span class="description">
+                                                <i class="fas fa-calendar-alt"></i> @item.NgayDang
+                                                <i class="fas fa-eye ml-2"></i> @item.LuotXem
+                                            </span>
+                                        </div>
+                                        <!-- /.user-block -->
+                                        <p>
+                                            @item.TomTat
+                                        </p>
+
+                                        <p>
+                                            <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                                            <span class="float-right">
+                                                <a href="#" class="link-black text-sm">
+                                                    <i class="far fa-comments mr-1"></i> Bình Luận
+                                                </a>
+                                            </span>
+                                        </p>
+
+
+                                    </div>
+                                }
+                                <!-- /.post -->
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>

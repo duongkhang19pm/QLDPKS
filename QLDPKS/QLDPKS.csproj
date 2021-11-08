@@ -336,6 +336,7 @@
     <Content Include="Areas\Admin\Views\TienNghi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Home\DoiMatKhau.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ThongTinNV.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -366,6 +367,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\DoiMatKhau.cshtml" />
     <Content Include="Views\Home\DangKy.cshtml" />
+    <Content Include="Views\Home\ThongTinKH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AlbumAnh\" />

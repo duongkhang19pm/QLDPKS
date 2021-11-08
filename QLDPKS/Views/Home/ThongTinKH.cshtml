@@ -1,0 +1,114 @@
+﻿@model QLDPKS.Models.KhachHang
+@{
+    ViewBag.Title = "Thông Tin Cá Nhân";
+}
+
+<div class="row mt-2">
+    <div class="col-md-3">
+
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+
+
+                <h3 class="profile-username text-center">@Model.HoVaTen</h3>
+
+            </div>
+            <div class="card-body">
+                <strong><i class="fas fa-phone mr-1"></i> Số Điện Thoại</strong>
+
+                <p class="text-muted">
+                    @Model.SDT
+                </p>
+                <hr>
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa  Chỉ</strong>
+                <p class="text-muted">@Model.DiaChi</p>
+                <hr>
+                <strong><i class="fas fa-address-card mr-1"></i> CMND</strong>
+                <p class="text-muted">
+                    @Model.CMND
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-link mr-1"></i>Email</strong>
+
+                <p class="text-muted">@Model.Email</p>
+                <hr>
+                <a type="button" class="btn btn-outline-info " href="@Url.Action("DoiMatKhau", "Home")"><i class="fas fa-sync-alt mr-2"></i>Đổi mật khẩu</a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Phiếu Đặt Phòng Của Tôi</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <table class="table table-bordered table-hover table-sm">
+                        <tr>
+                            <th width="5%">STT</th>
+                            <th>Số Điện Thoại Liên Hệ </th>
+                            <th>Ngày Đến </th>
+                            <th>Ngày Đi</th>
+                            <th>Tình Trạng Phiếu</th>
+                            <th>Ngày Đặt Phòng</th>
+
+
+                            <th>Chi Tiết</th>
+                        </tr>
+                        @{ int stt = 1; }
+                        @foreach (var item in Model.PhieuDatPhong)
+                        {
+                            <tr>
+                                <td>@stt</td>
+                                <td> @item.SDTLienHe</td>
+                                <td>@item.NgayDen</td>
+                                <td>@item.NgayDi</td>
+                                <td>
+                                    @if (item.TinhTrang == 0)
+                                    {
+                                        <span>Phiếu Đặt Phòng Mới</span>
+                                    }
+                                    else if (item.TinhTrang == 1)
+                                    {
+                                        <span>Đang xác nhận</span>
+                                    }
+                                    else if (item.TinhTrang == 2)
+                                    {
+                                        <span>Đã hủy</span>
+                                    }
+                                    else if (item.TinhTrang == 3)
+                                    {
+                                        <span>Thất bại</span>
+                                    }
+                                    else if (item.TinhTrang == 4)
+                                    {
+                                        <span>Thành công</span>
+                                    }
+                                </td>
+                                <td>@item.NgayDatPhong</td>
+
+                                <td>
+                                    <a href="@Url.Action("ChiTietPhieu", new { id = item.ID })" class="btn btn-info btn-sm"><i class="fas fa-folder mr-2"></i>View</a>
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+
+                    </table>
+                </div>
+                <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
