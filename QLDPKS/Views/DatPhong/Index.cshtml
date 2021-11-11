@@ -1,0 +1,51 @@
+﻿@model IEnumerable<QLDPKS.Models.Phong>
+@{
+    ViewBag.Title = "Đặt Phòng";
+    var cart = (List<QLDPKS.Models.DatPhongKS>)Session["cart"];
+}
+
+<div class="card mt-2">
+    <h5 class="card-header text-center">@ViewBag.Title</h5>
+    <div class="card-body">
+        @if (cart == null || cart.Count() < 0)
+        {
+            <span>Đặt phòng chưa có !</span>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover table-sm">
+                <tr class="text-center">
+                    <th width="5%">STT</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên Phòng</th>
+                    <th>Đơn giá</th>
+                    <th>Số Lượng Phòng</th>
+                    <th width="10%">Xóa</th>
+                </tr>
+                @{ int stt = 1; }
+                @foreach (var item in cart)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td class="text-center"><img src="~/@item.phong.HinhAnhBia" width="150" /></td>
+                        <td>@item.phong.TenPhong</td>
+
+                        <td class="text-right">@String.Format("{0:N0}", item.phong.Gia) VND</td>
+                        <td>@item.soNgay</td>
+                        <td class="text-center">
+                            <a href="@Url.Action("XoaKhoiDatPhong", "DatPhong", new { id = item.phong.ID })" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>
+                        </td>
+
+                    </tr>
+                    stt++;
+                }
+
+            </table>
+
+            <p>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Tiếp tục mua hàng</a>
+                <a href="@Url.Action("NhapThongTin", "Home")" class="btn btn-success"><i class="fas fa-money-check-alt fa-lg "></i> Tiếp Theo </a>
+            </p>
+        }
+    </div>
+</div>

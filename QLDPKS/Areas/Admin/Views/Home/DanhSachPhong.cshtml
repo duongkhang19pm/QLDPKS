@@ -1,0 +1,83 @@
+﻿@model IEnumerable<QLDPKS.Models.Phong>
+@{
+    ViewBag.Title = "Trang Chủ";
+}
+
+
+<div class="card card-solid mt-2">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item active">Danh Sách Phòng</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body pb-0">
+
+        <div class="row">
+
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                            <div class="card-header text-muted border-bottom-0">
+                                Thông Tin
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="lead"><b>Thông Tin Phòng @item.TenPhong</b></h2>
+
+                                        <div>
+                                            <samp class="text-muted text-sm"> @String.Format("{0:N0}", item.Gia) VND</samp>
+                                            <br />
+
+                                            <samp class="text-muted text-sm">Số Lượng : @item.SLNguoi Người </samp>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="m-md-2">Trạng thái Phòng </span>
+
+                                            @if (item.TrangThai == 1)
+                                            {<a style="color:lawngreen;">
+                                                    <i class="fas fa-toggle-on fa-2x text-green "></i>
+                                                </a>
+                                            }
+                                            else
+                                            {<a style="color:red;">
+                                                    <i class="fas fa-toggle-off fa-2x text-danger "></i>
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <img src="~/@item.HinhAnhBia" alt="user-avatar " class="img-circle img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-right">
+
+                                    <a class="btn btn-sm btn-outline-info col-4" href="@Url.Action("ChiTietPhong", "Home", new { id = item.ID })"><i class="fas fa-info"></i> Chi Tiết</a>
+
+                                    <a href="@Url.Action("ThemVaoDatPhong", "DatPhongAdmin", new {id = item.ID })" class="btn btn-sm btn-outline-success col-4">
+                                        <i class="fas fa-inbox"></i> Đặt Phòng
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,236 @@
+﻿@model QLDPKS.Models.PhieuDatPhong
+
+@{
+    ViewBag.Title = "Chi Tiết";
+
+
+}
+<div class="breadcrumb_section bg_gray page-title-mini">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+
+            <ol class="breadcrumb align-content-md-end">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                <li class="breadcrumb-item active">@ViewBag.Title</li>
+            </ol>
+
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-3">
+
+
+
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Thông Tin Cá Nhân Khách Hàng</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <strong><i class="fas fa-user-tie mr-1"></i> Họ Và Tên</strong>
+                <p class="text-muted">@Model.KhachHang.HoVaTen</p>
+                <hr>
+                <strong><i class="fas fa-phone mr-1"></i> Số Điện Thoại</strong>
+                <p class="text-muted">@Model.KhachHang.SDT</p>
+                <hr>
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa  Chỉ</strong>
+                <p class="text-muted">@Model.KhachHang.DiaChi</p>
+                <hr>
+                <strong><i class="fas fa-address-card mr-1"></i> CMND</strong>
+                <p class="text-muted">@Model.KhachHang.CMND</p>
+                <hr>
+                <strong><i class="fas fa-link mr-1"></i>Email</strong>
+                <p class="text-muted">@Model.KhachHang.Email</p>
+            </div>
+        </div>
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Thông Tin Phiếu Đặt Phòng</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <strong><i class="far fa-calendar-alt mr-1"></i> Ngày Đặt Phòng</strong>
+                <p class="text-muted">@Model.NgayDatPhong</p>
+                <hr>
+                <strong><i class="fas fa-phone mr-1"></i> Số Điện Thoại Liên Hệ</strong>
+                <p class="text-muted">@Model.SDTLienHe</p>
+                <hr>
+                <strong><i class="far fa-calendar-alt mr-1"></i> Ngày Nhận Phòng</strong>
+                <p class="text-muted">@Model.NgayDen</p>
+                <hr>
+                <strong><i class="far fa-calendar-alt mr-1"></i> Ngày Trả Phòng</strong>
+                <p class="text-muted">@Model.NgayDi</p>
+                <hr>
+
+                <strong><i class="fas fa-money-check-alt mr-1"></i>Hình Thức Thanh Toán </strong>
+                <p class="text-muted">
+                    @if (Model.HinhThucThanhToan == 0)
+                    {
+                        <span>Thanh toán tiền mặt khi nhận hàng</span>
+                    }
+                    else if (Model.HinhThucThanhToan == 1)
+                    {
+                        <span>Thẻ ATM đăng ký Internet Banking (Miễn phí thanh toán)</span>
+                    }
+                    else if (Model.HinhThucThanhToan == 2)
+                    {
+                        <span>Thanh Toán bằng thẻ quốc tế Visa, Master</span>
+                    }
+                </p>
+                <hr>
+                <strong><i class="fas fa-bell mr-1"></i> Tình Trạng Phiếu Đặt Phòng</strong>
+                <p class="text-muted">
+                    @if (Model.TinhTrang == 0)
+                    {
+                        <span>Phiếu Đặt Phòng Mới</span>
+                    }
+                    else if (Model.TinhTrang == 1)
+                    {
+                        <span>Đang xác nhận</span>
+                    }
+                    else if (Model.TinhTrang == 2)
+                    {
+                        <span>Đã hủy</span>
+                    }
+                    else if (Model.TinhTrang == 3)
+                    {
+                        <span>Thất bại</span>
+                    }
+                    else if (Model.TinhTrang == 4)
+                    {
+                        <span>Thành công</span>
+                    }
+                </p>
+                <hr>
+                <strong><i class="fas fa-list-ol mr-1"></i> Số Lượng Phòng Thuê </strong>
+                <p class="text-muted"> @Model.ChiTietPhieuDatPhong.Count() Phòng</p>
+                <hr>
+                <strong><i class="far fa-calendar-alt mr-1"></i> Số Ngày Đặt Phòng </strong>
+                <p class="text-muted">
+                    @{
+                        int songay = (int)(Model.NgayDi - Model.NgayDen).Value.TotalDays;
+                    }
+                    @songay ngày
+                </p>
+
+                <hr>
+                <strong><i class="far fa-calendar-alt mr-1"></i> Thành Tiền </strong>
+                <p class="text-muted">
+                    @{
+
+
+                        decimal ThanhTien = Model.ChiTietPhieuDatPhong.Sum(n => songay * n.Phong.Gia).Value;
+                    }
+                    @String.Format("{0:N0}", ThanhTien) VND
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <div class="col-md-9">
+
+        <div class="form-row">
+            <div class="col-md-10">
+                <div class="card card-info">
+                    <div class="card-header ">
+                        <h3 class="card-title">Thông Tin Chi Tiết Phiếu @Model.ID</h3>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a type="button" class="btn btn-outline-warning" href="@Url.Action("HoaDon", new { id = Model.ID })"><i class="fas fa-file-invoice-dollar mr-1"></i>Hóa Đơn</a>
+
+            </div>
+        </div><!-- /.card-header -->
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="activity">
+                    @foreach (var item in Model.ChiTietPhieuDatPhong)
+                    {
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <h4>Tên Phòng: @item.Phong.TenPhong </h4>
+                                <div class="col-12">
+                                    <img src="~/@item.Phong.HinhAnhBia" class="product-image" alt="Product Image" height="500">
+                                </div>
+                                <div class=" mt-2">
+                                    @foreach (var anh in item.Phong.AlbumAnh)
+                                    {
+                                        <img src="@anh.AlbumHinhAnh" width="100" height="80" class="img-thumbnail" />
+                                    }
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-sm-6">
+
+                                <h4 class="mt-4 text-left">Dịch Vụ Phòng</h4>
+                                @foreach (var dv in item.Phong.ChiTietDichVu)
+                                {<label class="m-md-1">
+                                        <i class="fab fa-servicestack fa-2x text-info"></i> @dv.DichVu.TenDichVu
+                                    </label>
+                                }
+                                <h4 class="mt-4 text-left">Tiện Nghi Phòng Phòng</h4>
+                                @foreach (var tn in item.Phong.ChiTietTienNghi)
+                                {<label class="m-md-1">
+                                        <i class="fab fa-artstation fa-2x text-warning"></i> @tn.TienNghi.TenTienNghi
+                                    </label>
+                                }
+
+                                <div class="row mt-2">
+                                    <div class="col-sm-6 text-left">
+                                        <h4>Loại Phòng:</h4>
+                                        <h6><i class="fab fa-typo3 fa-2x"></i>   @item.Phong.LoaiPhong.TenLoai</h6>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <h5>Số Lượng :  @item.Phong.SLNguoi Người </h5>
+                                        <h5>Diện Tích : @item.Phong.DTPhong m2 </h5>
+                                    </div>
+                                </div>
+
+
+                                <div class="bg-gray py-2 px-3 mt-4">
+                                    <h2 class="mb-0">
+                                        @String.Format("{0:N0}", item.Phong.Gia) VND
+                                    </h2>
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+                        <hr>
+
+                    }
+
+
+
+
+
+                </div>
+            </div>
+            <!-- /.tab-content -->
+        </div><!-- /.card-body -->
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section Scripts{
+
+
+}

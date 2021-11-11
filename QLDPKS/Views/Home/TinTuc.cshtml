@@ -1,0 +1,37 @@
+﻿@model IEnumerable<QLDPKS.Models.BaiViet>
+@{
+    ViewBag.Title = "Tin Tức";
+}
+
+
+<div class="card mt-2">
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 ">
+                    <div class="card list-books h-100 border border-danger">
+                        <div class="card  h-100" style="background: #FFFF66 ">
+                            <img src="@Server.HtmlDecode(QLKS.Libs.Images.GetFirstImage(item.NoiDung))" width="120" height="400" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <strong class="card-title">@item.TieuDe</strong> <br />
+                                <p class="small text-muted">
+                                <p class="fas fa-calendar-alt "></p> @item.NgayDang
+
+                                <p class="fas fa-eye ml-2"></p> @item.LuotXem
+
+                                <p class="card-text">@item.TomTat</p>
+                                <a href="@Url.Action("Detail", "Home", new { id = item.ID })" class="btn btn-dark col-4 float-right position-absolute bottom-0 end-0"><i class="fas fa-info mr-1"></i>Xem Thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>
+
+

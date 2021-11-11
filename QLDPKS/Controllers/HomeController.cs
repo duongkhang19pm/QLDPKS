@@ -5,15 +5,55 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 namespace QLDPKS.Controllers
 {
 	public class HomeController : Controller
 	{
 		private QLKSEntities db = new QLKSEntities();
-		// GET: Home
 		public ActionResult Index()
 		{
-			return View();
+			var phong = db.Phong.Where(p => p.TrangThai == 1).ToList();
+			return View(phong);
+		}
+		public ActionResult ChiTiet(int id)
+		{
+			var phong = db.Phong.Where(p => p.ID == id && p.TrangThai == 1).SingleOrDefault();
+			return View(phong);
+		}
+		[HttpPost]
+		public ActionResult Search(FormCollection collection)
+		{
+			string tukhoa = collection["TuKhoa"].ToString();
+			var p = db.Phong.Where(r => r.TrangThai > 0 && r.TenPhong.Contains(tukhoa)).ToList();
+			return View(p);
+		}
+		public ActionResult TinTuc()
+		{
+			var baiViet = db.BaiViet.Where(p => p.KiemDuyet == 1).OrderByDescending(r => r.NgayDang).ToList();
+			return View(baiViet);
+		}
+
+		public ActionResult Detail(int id)
+		{
+			// Lấy thông tin bài viết
+			var baiViet = db.BaiViet.Where(p => p.KiemDuyet == 1 && p.ID == id).SingleOrDefault();
+
+			// Tăng lượt xem
+			// Chính sách: Mỗi máy chỉ tăng 1 lượt xem
+			if (Object.Equals(Session["DaXem" + baiViet.ID], null))
+			{
+				BaiViet bv = db.BaiViet.Find(id);
+				bv.LuotXem = bv.LuotXem + 1;
+				db.Entry(bv).State = EntityState.Modified;
+				db.SaveChanges();
+
+				// Đánh dấu là đã xem
+				Session["DaXem" + bv.ID] = 1;
+			}
+
+			// Hiển thị bài viết ra View
+			return View(baiViet);
 		}
 		// GET: NhanVien/Logout
 		public ActionResult Logout()
@@ -62,6 +102,82 @@ namespace QLDPKS.Controllers
 			}
 
 			return View(khachHang);
+		}
+
+		public ActionResult NhapThongTin()
+		{
+
+			if (Session["MaKhachHang"] == null)
+			{
+				return RedirectToAction("Login", "Home");
+			}
+			else
+			{
+				return View();
+			}
+		}
+
+		//POST: Register
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult NhapThongTin(PhieuDatPhong phieuDatPhong)
+		{
+			if (ModelState.IsValid)
+			{
+				Session["MaPhong"] = phieuDatPhong.ID;
+				phieuDatPhong.NgayDatPhong = DateTime.Now;
+				phieuDatPhong.TinhTrang = 0;
+				phieuDatPhong.KhachHang_ID = Convert.ToInt32(Session["MaKhachHang"]);
+				db.PhieuDatPhong.Add(phieuDatPhong);
+				db.SaveChanges();
+				return RedirectToAction("ThanhToan", "Home", new { id = phieuDatPhong.ID });
+			}
+			return View(phieuDatPhong);
+		}
+
+		// GET: Home/ThanhToan
+		public ActionResult ThanhToan(int id)
+		{
+			if (Session["MaKhachHang"] == null)
+			{
+				return RedirectToAction("Login", "Home");
+			}
+			else
+			{
+				var phieu = db.PhieuDatPhong.Find(id);
+				List<DatPhongKS> cart = (List<DatPhongKS>)Session["cart"];
+				foreach (var item in cart)
+				{
+					item.soNgay = (int)(phieu.NgayDi - phieu.NgayDen).Value.TotalDays;
+				}
+				return View();
+			}
+		}
+
+		// POST: Home/ThanhToan
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult ThanhToan(ChiTietPhieuDatPhong chiTietPhieuDat, int id)
+		{
+			if (ModelState.IsValid)
+			{
+				var phieu = db.PhieuDatPhong.Find(id);
+				List<DatPhongKS> cart = (List<DatPhongKS>)Session["cart"];
+				foreach (var item in cart)
+				{
+					chiTietPhieuDat.PhieuDatPhong_ID = phieu.ID;
+					chiTietPhieuDat.Phong_ID = item.phong.ID;
+					chiTietPhieuDat.SoLuong = Convert.ToInt16(item.soNgay);
+					chiTietPhieuDat.DonGia = (chiTietPhieuDat.SoLuong * item.phong.Gia);
+					db.ChiTietPhieuDatPhong.Add(chiTietPhieuDat);
+					db.SaveChanges();
+				}
+				cart.Clear();
+				SetAlert("Thanh Toán Thành Công", "success");
+				// Quay về trang chủ
+				return RedirectToAction("Index", "Home");
+			}
+			return View(chiTietPhieuDat);
 		}
 
 		//GET: DangKy
@@ -126,6 +242,16 @@ namespace QLDPKS.Controllers
 			}
 			return View(doiMatKhauModel);
 		}
+
+
+
+		public ActionResult ChiTietPhieu(int id)
+		{
+
+			var phieu = db.PhieuDatPhong.Where(p => p.ID == id).SingleOrDefault();
+			return View(phieu);
+		}
+
 		public ActionResult ThongTinKH(int id)
 		{
 			var kh = db.KhachHang.Where(nv => nv.ID == id).SingleOrDefault();
@@ -149,4 +275,5 @@ namespace QLDPKS.Controllers
 			}
 		}
 	}
+
 }

@@ -1,0 +1,112 @@
+﻿@model QLDPKS.Models.PhieuDatPhong
+
+@{
+    ViewBag.Title = "Cập Nhật Phiếu Đặt Phòng";
+}
+
+<div class="card mt-3">
+    <div class="breadcrumb_section bg_gray page-title-mini">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <ol class="breadcrumb align-content-md-end">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Danh Sách</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ID)
+            <form>
+
+                <div class="form-row">
+                    <div class="form-group  col-md-6">
+                        @Html.LabelFor(model => model.KhachHang_ID)
+                        @Html.DropDownList("KhachHang_ID", null, "-- Chọn --", htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.KhachHang_ID, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group  col-md-6">
+                        @Html.LabelFor(model => model.NhanVien_ID)
+                        @Html.DropDownList("NhanVien_ID", null, "-- Chọn --", htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.NhanVien_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group  col-md-12">
+                    @Html.LabelFor(model => model.SDTLienHe)
+                    @Html.EditorFor(model => model.SDTLienHe, new { htmlAttributes = new { @class = "form-control shadow-none col-md-12" } })
+                    @Html.ValidationMessageFor(model => model.SDTLienHe, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.Label("Ngày Nhận Phòng")
+                        @Html.EditorFor(model => model.NgayDen, new { htmlAttributes = new { @class = "form-control  col-md-12", type = "text", required = "required", onfocus = "this.type='date'", onmouseover = "this.type='date'", onclick = "this.type='date'", onblur = "this.type='text'", onmouseout = "timeFunctionLong(this)" } })
+                        @Html.ValidationMessageFor(model => model.NgayDen, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.Label("Ngày Trả Phòng")
+                        @Html.EditorFor(model => model.NgayDi, new { htmlAttributes = new { @class = "form-control  col-md-12 ", type = "text", required = "required", onfocus = "this.type='date'", onmouseover = "this.type='date'", onclick = "this.type='date'", onblur = "this.type='text'", onmouseout = "timeFunctionLong(this)" } })
+                        @Html.ValidationMessageFor(model => model.NgayDi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.HinhThucThanhToan)
+                        @Html.DropDownListFor(model => model.HinhThucThanhToan, new SelectList(new[] {
+                            new SelectListItem {Value =null ,Text ="-- Chọn --"},
+                            new SelectListItem {Value ="0" ,Text ="Thanh toán tiền mặt khi nhận hàng"},
+                            new SelectListItem {Value ="1" ,Text ="Thẻ ATM đăng ký Internet Banking (Miễn phí thanh toán)"},
+                            new SelectListItem {Value ="2" ,Text ="Thanh Toán bằng thẻ quốc tế Visa, Master"}
+
+                        }, "value", "text"), new { @class = "form-control  col-md-12" })
+                        @Html.ValidationMessageFor(model => model.HinhThucThanhToan, "", new { @class = "text-danger " })
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.TinhTrang)
+                        @Html.DropDownListFor(model => model.TinhTrang, new SelectList(new[] {
+                            new SelectListItem {Value =null ,Text ="-- Chọn --"},
+                            new SelectListItem {Value ="0" ,Text ="Phiếu Đặt Phòng Mới"},
+                            new SelectListItem {Value ="1" ,Text ="Đang xác nhận"},
+                            new SelectListItem {Value ="2" ,Text ="Đã hủy"},
+                            new SelectListItem {Value ="3" ,Text ="Thất bại"},
+                            new SelectListItem {Value ="4" ,Text ="Thành công"}
+
+                        }, "value", "text"), new { @class = "form-control  col-md-12" })
+                        @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger " })
+
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.Label("Ngày Đặt Phòng")
+                        @Html.EditorFor(model => model.NgayDatPhong, new { htmlAttributes = new { @class = "form-control  col-md-12 ", type = "text", required = "required", onfocus = "this.type='date'", onmouseover = "this.type='date'", onclick = "this.type='date'", onblur = "this.type='text'", onmouseout = "timeFunctionLong(this)" } })
+                        @Html.ValidationMessageFor(model => model.NgayDatPhong, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-outline-dark"><i class="fas fa-cog"></i> Cập Nhật</button>
+                </div>
+
+            </form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function timeFunctionLong(input) {
+            setTimeout(function () {
+                input.type = 'text';
+            }, 60000);
+        }
+    </script>
+}

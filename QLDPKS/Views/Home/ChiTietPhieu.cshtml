@@ -1,0 +1,189 @@
+﻿@model QLDPKS.Models.PhieuDatPhong
+
+@{
+    ViewBag.Title = "Chi Tiết";
+
+
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+
+
+                <!-- Main content -->
+                <div class="invoice p-3 mb-3 mt-2">
+                    <!-- title row -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <i class="fas fa-globe"></i> Khách Sạn Virtoria
+
+                            </h4>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <!-- /.col -->
+                        <div class="col-sm-6 invoice-col">
+                            <strong>
+                                Thông Tin Khách Hàng
+                            </strong>
+                            <address>
+                                Họ Tên Khách Hàng : @Model.KhachHang.HoVaTen
+                                <br>
+                                Địa Chỉ : @Model.KhachHang.DiaChi<br>
+                                CMND: @Model.KhachHang.CMND<br>
+                                Số Điện Thoại: @Model.KhachHang.SDT<br>
+                                Email: @Model.KhachHang.Email
+                            </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6 invoice-col">
+                            <b>Phiếu Đặt Phòng : @Model.ID</b><br>
+                            <b>Ngày Đặt Phòng: </b> @Model.NgayDatPhong<br>
+                            <b>Tình Trạng Phiếu</b> @if (Model.TinhTrang == 0)
+                            {
+                                <span>Phiếu Đặt Phòng Mới</span>
+                            }
+                            else if (Model.TinhTrang == 1)
+                            {
+                                <span>Đang xác nhận</span>
+                            }
+                            else if (Model.TinhTrang == 2)
+                            {
+                                <span>Đã hủy</span>
+                            }
+                            else if (Model.TinhTrang == 3)
+                            {
+                                <span>Thất bại</span>
+                            }
+                            else if (Model.TinhTrang == 4)
+                            {
+                                <span>Thành công</span>
+                            }
+
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                    <!-- Table row -->
+                    <div class="row mt-3">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <td>Tên Phòng</td>
+                                        <td>Số Lượng Người</td>
+                                        <td>Diện Tích</td>
+                                        <td>Đơn Giá</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int stt = 1; }
+                                    @foreach (var item in Model.ChiTietPhieuDatPhong)
+                                    {
+                                        <tr>
+                                            <td>@stt</td>
+                                            <td>@item.Phong.TenPhong</td>
+                                            <td>@item.Phong.SLNguoi</td>
+                                            <td>@item.Phong.DTPhong</td>
+
+                                            <td>
+                                                @{
+                                                    int dongia = Convert.ToInt32(item.Phong.Gia);
+                                                }
+                                                @String.Format("{0:N0}", dongia) VND
+                                            </td>
+                                        </tr>
+
+                                        stt++;
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-6">
+                            <p class="lead">Phương Thức Thanh Toán:</p>
+                            @if (Model.HinhThucThanhToan == 0)
+                            {
+                                <span>Thanh toán tiền mặt khi nhận hàng</span>
+                            }
+                            else if (Model.HinhThucThanhToan == 1)
+                            {
+                                <span>Thẻ ATM đăng ký Internet Banking (Miễn phí thanh toán)</span>
+                            }
+                            else if (Model.HinhThucThanhToan == 2)
+                            {
+                                <span>Thanh Toán bằng thẻ quốc tế Visa, Master</span>
+                            }
+
+
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-6">
+
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+
+                                        <tr>
+                                            <th>Ngày Nhận Phòng:</th>
+                                            <td> @Model.NgayDen</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Ngày Trả Phòng:</th>
+                                            <td> @Model.NgayDi</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Số Ngày Đặt Phòng:</th>
+                                            <td>
+                                                @{
+                                                    int songay = (int)(Model.NgayDi - Model.NgayDen).Value.TotalDays;
+                                                }
+                                                @songay ngày
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Thành Tiền:</th>
+                                            <td>
+                                                @{
+
+
+                                                    decimal ThanhTien = Model.ChiTietPhieuDatPhong.Sum(n => songay * n.Phong.Gia).Value;
+                                                }
+                                                @String.Format("{0:N0}", ThanhTien) VND
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                    <!-- this row will not appear when printing -->
+
+                </div>
+
+                <!-- /.invoice -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+@section Scripts{
+
+
+}

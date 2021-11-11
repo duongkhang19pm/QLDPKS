@@ -1,0 +1,61 @@
+﻿@model QLDPKS.Models.ChiTietPhieuDatPhong
+@{
+    ViewBag.Title = "Thanh Toán";
+}
+
+<div class="card mt-3">
+    <h5 class="card-header">Thông tin sản phẩm đặt mua</h5>
+    <div class="card-body">
+        <table class="table table-bordered table-hover table-sm">
+            <tr>
+                <th width="5%">STT</th>
+                <th>Hình ảnh</th>
+                <th>Tên Phòng </th>
+                <th width="10%">Số ngày</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+            @{ int stt = 1; }
+
+            @foreach (var item in (List<QLDPKS.Models.DatPhongKS>)Session["cart"])
+            {
+
+                <tr>
+                    <td>@stt</td>
+                    <td class="text-center"><img src="~/@item.phong.HinhAnhBia" width="100" /></td>
+                    <td class="text-center">@item.phong.TenPhong</td>
+                    <td>@item.soNgay</td>
+                    <td class="text-right">@String.Format("{0:N0}", item.phong.Gia) VND</td>
+                    <td class="text-right">@String.Format("{0:N0}", item.soNgay * item.phong.Gia) VND</td>
+                </tr>
+                stt++;
+
+
+            }
+            <tr>
+                <td colspan="5">Tổng thành tiền</td>
+                <td class="text-right font-weight-bold text-primary">
+                    @{
+                        List<QLDPKS.Models.DatPhongKS> cart = (List<QLDPKS.Models.DatPhongKS>)Session["cart"];
+                        var total = cart.Sum(item => item.phong.Gia * item.soNgay);
+                    }
+                    @String.Format("{0:N0}", total) VND
+                </td>
+            </tr>
+        </table>
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <form>
+
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-dark w-25"><i class="fab fa-apple-pay fa-2x"></i></button> hoặc @Html.ActionLink("Quay về trang chủ", "Index", "Home")
+                </div>
+            </form>
+        }
+    </div>
+</div>

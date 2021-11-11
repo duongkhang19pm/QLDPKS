@@ -1,31 +1,69 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<QLDPKS.Models.Phong>
+@{
+    ViewBag.Title = "Trang Chủ";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="card vh-100">
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body pb-0 ">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-2">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                            Thông Tin
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>Thông Tin Phòng @item.TenPhong</b></h2>
+
+                                    <div>
+                                        <samp class="text-muted text-sm"> @String.Format("{0:N0}", item.Gia) VND</samp>
+                                        <br />
+
+                                        <samp class="text-muted text-sm">Số Lượng : @item.SLNguoi Người </samp>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="m-md-2">Trạng thái Phòng </span>
+
+                                        @if (item.TrangThai == 1)
+                                        {<a style="color:lawngreen;">
+                                                <i class="fas fa-toggle-on fa-2x text-green "></i>
+                                            </a>
+                                        }
+                                        else
+                                        {<a style="color:red;">
+                                                <i class="fas fa-toggle-off fa-2x text-danger "></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="~/@item.HinhAnhBia" alt="user-avatar " class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+
+                                <a class="btn btn-sm btn-info col-4" href="@Url.Action("ChiTiet", "Home", new { id = item.ID })"><i class="fas fa-info"></i> Chi Tiết</a>
+
+                                <a href="@Url.Action("ThemVaoDatPhong", "DatPhong", new {id = item.ID })" class="btn btn-sm btn-success col-4">
+                                    <i class="fab fa-paypal"></i> Đặt Phòng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+
+
     </div>
 </div>
