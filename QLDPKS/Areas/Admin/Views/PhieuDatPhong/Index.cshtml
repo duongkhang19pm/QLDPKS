@@ -4,6 +4,7 @@
     ViewBag.Title = "Danh Sách Phiếu Đặt Phòng";
 }
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 <div class="card mt-3">
     <div class="breadcrumb_section bg_gray page-title-mini">
@@ -20,7 +21,7 @@
         </div>
     </div>
     <div class="card-body">
-        <p><a class="btn btn-dark" href="@Url.Action("Create")" role="button"><i class="fas fa-plus"></i> Thêm mới</a></p>
+
         <table id="PhanTrang" class="table table-bordered table-hover table-sm mb-0">
             <thead>
                 <tr>
@@ -66,27 +67,38 @@
                             @Html.DisplayFor(modelItem => item.NgayDi)
                         </td>
                         <td>
-                            @if (item.TinhTrang == 0)
-                            {
-                                <span>Phiếu Đặt Phòng Mới</span>
-                            }
-                            else if (item.TinhTrang == 1)
-                            {
-                                <span>Đang xác nhận</span>
-                            }
-                            else if (item.TinhTrang == 2)
-                            {
-                                <span>Đã hủy</span>
-                            }
-                            else if (item.TinhTrang == 3)
-                            {
-                                <span>Thất bại</span>
-                            }
-                            else if (item.TinhTrang == 4)
-                            {
-                                <span>Thành công</span>
-                            }
+                            <select id="trangthai" onchange="document.location.href = '/PhieuDatPhong/TinhTrang/' + @item.ID +'?tinhtrang='+ this.options[this.selectedIndex].value;">
+
+                                @if (item.TinhTrang == 0)
+                                {
+                                    <option value="0" selected>Phiếu Đặt Phòng mới</option>
+                                    <option value="1">Thành công </option>
+                                    <option value="2">Đã Trả Phòng</option>
+
+                                }
+                                else if (item.TinhTrang == 1)
+                                {
+
+
+                                    <option value="0">Phiếu Đặt Phòng mới</option>
+                                    <option value="1" selected>Thành công </option>
+                                    <option value="2">Đã Trả Phòng</option>
+                                }
+                                else if (item.TinhTrang == 2)
+                                {
+
+
+                                    <option value="0">Phiếu Đặt Phòng mới</option>
+                                    <option value="1">Thành công </option>
+                                    <option value="2" selected>Đã Trả Phòng</option>
+
+                                }
+
+
+
+                            </select>
                         </td>
+
 
                         <td>
                             @Html.DisplayFor(modelItem => item.KhachHang.HoVaTen)
@@ -98,7 +110,7 @@
 
                         <td class=" text-center">
 
-                            <a href="@Url.Action("Detail", new { id = item.ID })" class="btn btn-outline-primary btn-sm"><i class="fas fa-folder"></i>View</a>
+                            <a href="@Url.Action("Details", new { id = item.ID })" class="btn btn-outline-primary btn-sm"><i class="fas fa-folder"></i>View</a>
                             <a href="@Url.Action("Edit", new { id = item.ID })" class="btn btn-outline-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
                             <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>
                         </td>
@@ -111,7 +123,14 @@
     </div>
 </div>
 @section Scripts{
-    <script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
         $(document).ready(function () {
             $('#PhanTrang').DataTable({
                 "language": {

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<QLDPKS.Models.ChiTietPhieuDatPhong>
+
+@{
+    ViewBag.Title = "Danh Sách Chi Tiết Phiếu Đặt Phòng";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
+
+<div class="card mt-3">
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body">
+        <p><a class="btn btn-dark" href="@Url.Action("Create")" role="button"><i class="fas fa-plus"></i> Thêm mới</a></p>
+        <table id="PhanTrang" class="table table-bordered table-hover table-sm mb-0">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhieuDatPhong.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phong.TenPhong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoLuong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DonGia)
+                    </th>
+                    <th width="20%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int stt = 1; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhieuDatPhong.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phong.TenPhong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DonGia)
+                        </td>
+                        <td class=" text-center">
+                            <a href="@Url.Action("HoaDon", new { id = item.ID })" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                            <a href="@Url.Action("Edit", new { id = item.ID })" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Edit</a>
+                            <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>
+                        </td>
+
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#PhanTrang').DataTable({
+                "language": {
+                    "lengthMenu": "Số dòng _MENU_  trên trang ",
+                    "zeroRecords": "Không tìm thấy!!!",
+                    "info": "Trang  _PAGE_ của _PAGES_",
+                    "infoEmpty": "Không có sẵn dữ liệu",
+                    "infoFiltered": "(được lọc từ tổng _MAX_  dữ liệu)"
+
+
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.js"></script>
+
+}

@@ -316,3 +316,4 @@ D:\Doan2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.csproj.AssemblyReference.cache
 D:\Doan2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.csproj.CoreCompileInputs.cache
 D:\Doan2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.dll
 D:\Doan2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.pdb
+D:\NamIV\HK1\DoAn2\DoAn2\QLDPKS\QLDPKS\obj\Debug\QLDPKS.csproj.AssemblyReference.cache

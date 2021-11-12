@@ -31,10 +31,9 @@
                     <ul>
                     </ul>
                     <ul class="navbar-nav">
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="@Url.Action("TinTuc", "Home")">Các Hành Trình</a></li>
-
-                        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link " href="@Url.Action("TinTuc", "Home")"><i class="fas fa-newspaper"></i>Tin tức</a>
+                        </li>
 
                         @if (Session["MaKhachHang"] == null)
                         {

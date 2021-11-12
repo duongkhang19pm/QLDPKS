@@ -10,7 +10,7 @@ using QLDPKS.Models;
 
 namespace QLDPKS.Areas.Admin.Controllers
 {
-    public class KhachHangController : Controller
+    public class KhachHangController : XacThucController
     {
         private QLKSEntities db = new QLKSEntities();
 
@@ -20,12 +20,16 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View(db.KhachHang.ToList());
         }
 
-
+        // GET: Admin/KhachHang/Create
+        public ActionResult KhachHangCoTK()
+        {
+            return View(db.KhachHang.ToList());
+        }
 
         // GET: Admin/KhachHang/Create
         public ActionResult Create()
         {
-            return View(db.KhachHang.ToList());
+            return View();
         }
 
         // POST: Admin/KhachHang/Create
@@ -41,9 +45,10 @@ namespace QLDPKS.Areas.Admin.Controllers
                 Session["HoTenKH"] = khachHang.HoVaTen;
                 khachHang.MatKhau = Libs.SHA1.ComputeHash(khachHang.MatKhau);
                 khachHang.XacNhanMatKhau = Libs.SHA1.ComputeHash(khachHang.XacNhanMatKhau);
+
                 db.KhachHang.Add(khachHang);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "PhieuDatPhong", new { id = khachHang.ID });
             }
 
             return View(khachHang);
@@ -61,7 +66,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(new KhachHangEdit(khachHang));
+            return View(khachHang);
         }
 
         // POST: Admin/KhachHang/Edit/5
@@ -69,7 +74,7 @@ namespace QLDPKS.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HoVaTen,SDT,CMND,Email,DiaChi,TenDangNhap,MatKhau,XacNhanMatKhau")] KhachHangEdit khachHang)
+        public ActionResult Edit([Bind(Include = "ID,HoVaTen,SDT,CMND,Email,DiaChi,TenDangNhap,MatKhau,XacNhanMatKhau")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {

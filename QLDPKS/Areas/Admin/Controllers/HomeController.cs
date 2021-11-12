@@ -36,6 +36,16 @@ namespace QLDPKS.Areas.Admin.Controllers
             // Hiển thị bài viết ra View
             return View(baiViet);
         }
+		public ActionResult ChiTietPhong(int id)
+		{
+			var phong = db.Phong.Where(p => p.ID == id).SingleOrDefault();
+			return View(phong);
+		}
+		public ActionResult DanhSachPhong()
+		{
+			var phong = db.Phong.Where(p => p.TrangThai == 1).ToList();
+			return View(phong);
+		}
 		public ActionResult ThongTinNV(int id)
 		{
 			var nhanvien = db.NhanVien.Where(nv => nv.ID == id).SingleOrDefault();

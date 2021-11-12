@@ -6,27 +6,55 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using QLDPKS.Models;
 
 namespace QLDPKS.Areas.Admin.Controllers
 {
-    public class PhieuDatPhongController : Controller
+    public class PhieuDatPhongController : XacThucController
     {
         private QLKSEntities db = new QLKSEntities();
 
-        // GET: PhieuDatPhong
+        // GET: Admin/PhieuDatPhong
         public ActionResult Index()
         {
             var phieuDatPhong = db.PhieuDatPhong.Include(p => p.KhachHang).Include(p => p.NhanVien);
             return View(phieuDatPhong.ToList());
         }
-        // GET: PhieuDatPhong/Details/5
-        public ActionResult Details(int? id)
+
+        // GET: Admin/PhieuDatPhong/Details/5
+        public ActionResult Details(int id)
         {
+
+
+
+
             var phieu = db.PhieuDatPhong.Where(p => p.ID == id).SingleOrDefault();
             return View(phieu);
         }
+        public ActionResult TinhTrang(int id, short tinhtrang)
+        {
+            PhieuDatPhong dt = db.PhieuDatPhong.Find(id);
+            dt.TinhTrang = tinhtrang;
+            db.Entry(dt).State = EntityState.Modified;
 
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "PhieuDatPhong", new { area = "Admin" });
+        }
+        public ActionResult DoanhThu()
+        {
+            return View();
+        }
+
+        public ContentResult JSON()
+        {
+
+
+            JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
+            return Content(JsonConvert.SerializeObject(db.ChiTietPhieuDatPhong.Include(p => p.Phong).Where(dt => dt.PhieuDatPhong.TinhTrang == 1).Select(s => new { s.SoLuong, s.DonGia, s.PhieuDatPhong.NgayDatPhong }).ToList(), _jsonSetting), "application/json");
+        }
+        // GET: Admin/PhieuDatPhong/Details/5
         public ActionResult HoaDon(int id)
         {
 
@@ -41,7 +69,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             phieu.NhanVien_ID = Convert.ToInt32(Session["MaNhanVien"]);
             return View(phieu);
         }
-        // GET: PhieuDatPhong/Create
+        // GET: Admin/PhieuDatPhong/Create
         public ActionResult Create()
         {
             ViewBag.KhachHang_ID = new SelectList(db.KhachHang, "ID", "HoVaTen");
@@ -49,7 +77,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: PhieuDatPhong/Create
+        // POST: Admin/PhieuDatPhong/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -66,6 +94,7 @@ namespace QLDPKS.Areas.Admin.Controllers
                 db.PhieuDatPhong.Add(phieuDatPhong);
                 db.SaveChanges();
                 return RedirectToAction("Create", "ChiTietPhieuDatPhong", new { id = phieuDatPhong.ID });
+
             }
 
             ViewBag.KhachHang_ID = new SelectList(db.KhachHang, "ID", "HoVaTen", phieuDatPhong.KhachHang_ID);
@@ -73,7 +102,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View(phieuDatPhong);
         }
 
-        // GET: PhieuDatPhong/Edit/5
+        // GET: Admin/PhieuDatPhong/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,7 +119,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View(phieuDatPhong);
         }
 
-        // POST: PhieuDatPhong/Edit/5
+        // POST: Admin/PhieuDatPhong/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -99,7 +128,6 @@ namespace QLDPKS.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 db.Entry(phieuDatPhong).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -109,7 +137,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View(phieuDatPhong);
         }
 
-        // GET: PhieuDatPhong/Delete/5
+        // GET: Admin/PhieuDatPhong/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,7 +152,7 @@ namespace QLDPKS.Areas.Admin.Controllers
             return View(phieuDatPhong);
         }
 
-        // POST: PhieuDatPhong/Delete/5
+        // POST: Admin/PhieuDatPhong/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

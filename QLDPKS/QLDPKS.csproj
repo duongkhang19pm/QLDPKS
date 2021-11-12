@@ -131,6 +131,7 @@
     <Compile Include="Areas\Admin\Controllers\BinhLuanController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChiTietDichVuController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChiTietTienNghiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DatPhongAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DichVuController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Areas\Admin\Controllers\PhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TienNghiController.cs" />
     <Compile Include="Areas\Admin\Controllers\XacThucController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChiTietPhieuDatPhongController.cs" />
     <Compile Include="Controllers\DatPhongController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuDatPhongController.cs" />
@@ -2425,6 +2427,7 @@
     <Content Include="Areas\Admin\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\Home\ChiTietPhong.cshtml" />
     <Content Include="Areas\Admin\Views\Home\DanhSachPhong.cshtml" />
+    <Content Include="Areas\Admin\Views\DatPhongAdmin\index.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2466,6 +2469,10 @@
     <Content Include="Views\Home\ChiTietPhieu.cshtml" />
     <Content Include="Views\Home\TinTuc.cshtml" />
     <Content Include="Views\Home\ChiTiet.cshtml" />
+    <Content Include="Areas\Admin\Views\ChiTietPhieuDatPhong\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ChiTietPhieuDatPhong\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ChiTietPhieuDatPhong\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ChiTietPhieuDatPhong\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AlbumAnh\" />
