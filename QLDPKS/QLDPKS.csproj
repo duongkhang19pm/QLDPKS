@@ -2428,6 +2428,7 @@
     <Content Include="Areas\Admin\Views\Home\ChiTietPhong.cshtml" />
     <Content Include="Areas\Admin\Views\Home\DanhSachPhong.cshtml" />
     <Content Include="Areas\Admin\Views\DatPhongAdmin\index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuDatPhong\DoanhThu.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
